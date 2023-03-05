@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import ru.tatarinov.securityboot.model.User;
 import ru.tatarinov.securityboot.services.UserDetailService;
 
 @Controller
@@ -22,5 +25,17 @@ public class UserController {
     public String printCar(Model model) {
         model.addAttribute("user", userDetailService.allUser());
         return "admin";
+    }
+    @GetMapping(value = "/new")
+    public String newUser(Model model) {
+        model.addAttribute("user", new User());
+        return "new";
+    }
+
+    @PostMapping(value = "create")
+    public String createUser(@ModelAttribute("user") User user) {
+        System.out.println(user);
+        userDetailService.addUser(user);
+        return "redirect:/admin";
     }
 }

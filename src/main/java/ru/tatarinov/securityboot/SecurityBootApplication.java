@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class SecurityBootApplication {
 
 
-    @Transactional
+
     public static void main(String[] args) {
         SpringApplication.run(SecurityBootApplication.class, args);
 

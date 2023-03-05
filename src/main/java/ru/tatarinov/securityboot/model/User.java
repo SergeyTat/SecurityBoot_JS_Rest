@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-@Component
+
 @Entity
 @Table
 public class User implements UserDetails {
@@ -76,4 +76,22 @@ public class User implements UserDetails {
         return email;
     }
 
+    public User(String userName, String password, String email) {
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+    }
+
+    public User() {
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }
