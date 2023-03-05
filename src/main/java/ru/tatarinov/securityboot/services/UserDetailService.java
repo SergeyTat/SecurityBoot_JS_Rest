@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import ru.tatarinov.securityboot.model.User;
 import ru.tatarinov.securityboot.repositories.UserRepository;
 
+import java.util.List;
 
 
 @Service
@@ -22,5 +23,8 @@ public class UserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUserName(username);
+    }
+    public List<User> allUser(){
+       return userRepository.findAll();
     }
 }
