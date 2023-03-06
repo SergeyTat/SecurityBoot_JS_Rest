@@ -115,5 +115,7 @@ public class User implements UserDetails {
         return userName;
     }
 
-
+    public List<Role> getRoles() {
+        return roles;
+    }
 }

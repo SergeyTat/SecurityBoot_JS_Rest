@@ -3,10 +3,7 @@ package ru.tatarinov.securityboot.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.tatarinov.securityboot.model.User;
 import ru.tatarinov.securityboot.services.UserDetailService;
 
@@ -23,11 +20,11 @@ public class UserController {
 
 
     @GetMapping(value = "/admin")
-    public String printCar(Model model) {
+    public String printUser(Model model) {
         model.addAttribute("user", userDetailService.allUser());
         return "admin";
     }
-    @GetMapping(value = "/new")
+    @GetMapping(value = "/admin/new")
     public String newUser(Model model) {
         model.addAttribute("user", new User());
         return "new";
@@ -38,5 +35,23 @@ public class UserController {
         System.out.println(user);
         userDetailService.addUser(user);
         return "redirect:/admin";
+    }
+    @GetMapping(value = "/admin/{id}/edit")
+    public String editUser(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("user", userDetailService.findUser(id));
+        return "edit";
+    }
+
+    @PatchMapping(value = "/edit")
+    public String updateUser(@ModelAttribute("user") User user) {
+        userDetailService.addUser(user);
+        return "redirect:/admin";
+    }
+    @DeleteMapping(value = "/admin/{id}/remove")
+    public String removeUser(@PathVariable("id") Long id) {
+        System.out.println(id);
+      userDetailService.removeUser(id);
+        return "redirect:/admin";
+
     }
 }

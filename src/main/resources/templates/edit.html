@@ -10,12 +10,19 @@
     <input type="hidden" th:field="*{id}" id="id"/>
     <br/>
     <label for="name">Enter name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
+    <input type="text" th:field="*{userName}" id="name"/>
     <br/>
-    <label for="lastname">Enter lastname: </label>
-    <input type="text" th:field="*{lastname}" id="lastname"/>
+    <label for="email">Enter lastname: </label>
+    <input type="text" th:field="*{email}" id="email"/>
     <br/>
     <input type="submit" value="Update!"/>
 </form>
+
+Права пользователя:
+<div>
+    <th:block th:each="rl : ${user.getRoles()}">
+        <p th:text="${rl}"></p>
+    </th:block>
+</div>
 </body>
 </html>

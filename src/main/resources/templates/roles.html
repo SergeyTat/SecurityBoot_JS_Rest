@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Права доступа</title>
+</head>
+<body>
+<br/>
+<br/>
+
+<a th:href="@{/admin/role/new}">Добавить роль</a>
+
+
+<br/>
+<hr/>
+
+<table>
+
+    <tbody>
+    <tr>
+        <th>ID</th>
+        <th>РОЛЬ</th>
+    </tr>
+    <tr th:each="role : ${role}">
+
+        <td th:text="${role.getId()}"></td>
+        <td th:text="${role.getRole()}"></td>
+        <td>
+            <input type="button" value="Обновить"
+                   th:onclick="|window.location.href = ' @{/admin/role/{id}/edit (id=${role.getId()})}'|"/>
+
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/admin/role/{id}/remove (id=${role.getId()})}">
+                <input type="submit" value="Удалить!"/>
+            </form>
+
+        </td>
+
+
+    </tr>
+    </tbody>
+</table>
+
+
+<!--<div>-->
+<!--    <th:block th:each="usr : ${user}">-->
+<!--        <p th:text="${usr}"></p>-->
+<!--    </th:block>-->
+<!--</div>-->
+</body>
+</html>

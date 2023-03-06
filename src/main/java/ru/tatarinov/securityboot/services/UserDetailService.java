@@ -9,6 +9,7 @@ import ru.tatarinov.securityboot.model.User;
 import ru.tatarinov.securityboot.repositories.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -29,5 +30,11 @@ public class UserDetailService implements UserDetailsService {
     }
     public void addUser(User user){
         userRepository.save(user);
+    }
+    public User findUser(Long id){
+        return userRepository.findById(id).isEmpty()?null:userRepository.findById(id).get();
+    }
+    public void removeUser(Long id){
+        userRepository.deleteById(id);
     }
 }
