@@ -6,19 +6,21 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.tatarinov.securityboot.model.User;
+import ru.tatarinov.securityboot.repositories.RoleRepsitory;
 import ru.tatarinov.securityboot.repositories.UserRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
 public class UserDetailService implements UserDetailsService {
     private final UserRepository userRepository;
+    private final RoleRepsitory roleRepsitory;
 
     @Autowired
-    public UserDetailService(UserRepository userRepository) {
+    public UserDetailService(UserRepository userRepository, RoleRepsitory roleRepsitory) {
         this.userRepository = userRepository;
+        this.roleRepsitory = roleRepsitory;
     }
 
     @Override
@@ -32,9 +34,12 @@ public class UserDetailService implements UserDetailsService {
         userRepository.save(user);
     }
     public User findUser(Long id){
-        return userRepository.findById(id).isEmpty()?null:userRepository.findById(id).get();
+        return userRepository.findById(id).get();
     }
     public void removeUser(Long id){
         userRepository.deleteById(id);
     }
+
+
+
 }

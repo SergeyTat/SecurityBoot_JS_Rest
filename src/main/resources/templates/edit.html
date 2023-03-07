@@ -9,23 +9,27 @@
 <form th:method="PATCH" th:action="@{/edit}" th:object="${user}">
     <input type="hidden" th:field="*{id}" id="id"/>
     <br/>
-    <label for="name">Enter name: </label>
+    <label for="name">Имя пользователя: </label>
     <input type="text" th:field="*{userName}" id="name"/>
     <br/>
-    <label for="email">Enter lastname: </label>
+    <label for="email">Email: </label>
     <input type="text" th:field="*{email}" id="email"/>
     <br/>
-    <input type="submit" value="Update!"/>
+    <input type="submit" value="Изменить"/>
 </form>
 
-Права пользователя:
+<hr/>
+<br/>
+Роли пользователя:
 <div>
     <th:block th:each="rl : ${user.getRoles()}">
         <p th:text="${rl}"></p>
     </th:block>
 </div>
+<hr/>
+<br/>
 
-
+Список всех ролей:
 <table>
 
     <tbody>
@@ -39,9 +43,17 @@
         <td th:text="${role1.getRole()}"></td>
         <td>
             <form th:method="POST" th:action="@{/editRoleUser}">
-                <input type="text" th:value="${user.getId()}" name="userId"/>
-                <input type="text" th:value="${role1.getId()}" name="roleId"/>
+                <input type="hidden" th:value="${user.getId()}" name="userId"/>
+                <input type="hidden" th:value="${role1.getId()}" name="roleId"/>
                 <input type="submit" value="Добавить текущему пользователю"/>
+            </form>
+
+        </td>
+        <td>
+            <form th:method="POST" th:action="@{/deleteRoleUser}">
+                <input type="hidden" th:value="${user.getId()}" name="userId"/>
+                <input type="hidden" th:value="${role1.getId()}" name="roleId"/>
+                <input type="submit" value="Удалить у текущего пользователя"/>
             </form>
 
         </td>

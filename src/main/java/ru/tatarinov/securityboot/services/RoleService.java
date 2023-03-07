@@ -27,10 +27,11 @@ public class RoleService {
     }
 
     public Role findRole(Long id) {
-        return roleRepsitory.findById(id).isEmpty() ? null : roleRepsitory.findById(id).get();
+        return roleRepsitory.findById(id).get();
     }
 
     public void removeRole(Long id) {
         roleRepsitory.deleteById(id);
     }
+
 }

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Данные пользователя</title>
+</head>
+<body>
+Данные пользователя:
+<div>
+    <th:block th:each="usr : ${user}">
+        <p th:text="${usr}"></p>
+    </th:block>
+</div>
+<hr/>
+<br/>
+ Роли пользователя:
+<div>
+    <th:block th:each="rl : ${user.getRoles()}">
+        <p th:text="${rl}"></p>
+    </th:block>
+</div>
+<hr/>
+<br/>
+
+
+</body>
+</html>
