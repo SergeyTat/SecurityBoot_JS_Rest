@@ -4,17 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.tatarinov.securityboot.model.Role;
 import ru.tatarinov.securityboot.model.User;
+import ru.tatarinov.securityboot.repositories.RoleRepsitory;
 import ru.tatarinov.securityboot.services.UserDetailService;
 
 @Controller
 public class UserController {
 
     private final UserDetailService userDetailService;
+    private final RoleRepsitory roleRepsitory;
 
     @Autowired
-    public UserController(UserDetailService userDetailService) {
+    public UserController(UserDetailService userDetailService, RoleRepsitory roleRepsitory) {
         this.userDetailService = userDetailService;
+        this.roleRepsitory = roleRepsitory;
     }
 
 
@@ -39,6 +43,7 @@ public class UserController {
     @GetMapping(value = "/admin/{id}/edit")
     public String editUser(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", userDetailService.findUser(id));
+        model.addAttribute("role", roleRepsitory.findAll());
         return "edit";
     }
 
