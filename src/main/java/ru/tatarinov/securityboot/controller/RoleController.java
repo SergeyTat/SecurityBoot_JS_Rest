@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.tatarinov.securityboot.model.Role;
-import ru.tatarinov.securityboot.model.User;
 import ru.tatarinov.securityboot.services.RoleService;
 
 @Controller

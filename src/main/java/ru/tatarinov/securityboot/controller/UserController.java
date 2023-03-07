@@ -1,6 +1,7 @@
 package ru.tatarinov.securityboot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,6 @@ import ru.tatarinov.securityboot.services.RoleService;
 import ru.tatarinov.securityboot.services.UserDetailService;
 
 import java.security.Principal;
-import java.util.ArrayList;
 
 @Controller
 public class UserController {
@@ -19,11 +19,14 @@ public class UserController {
     private final UserDetailService userDetailService;
     private final RoleService roleService;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserController(UserDetailService userDetailService, RoleRepsitory roleRepsitory, RoleService roleService) {
+    public UserController(UserDetailService userDetailService, RoleRepsitory roleRepsitory, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userDetailService = userDetailService;
         this.roleService = roleService;
 
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -41,7 +44,7 @@ public class UserController {
 
     @PostMapping(value = "create")
     public String createUser(@ModelAttribute("user") User user) {
-        System.out.println(user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDetailService.addUser(user);
         return "redirect:/admin";
     }
@@ -61,7 +64,6 @@ public class UserController {
 
     @DeleteMapping(value = "/admin/{id}/remove")
     public String removeUser(@PathVariable("id") Long id) {
-        System.out.println(id);
         userDetailService.removeUser(id);
         return "redirect:/admin";
 

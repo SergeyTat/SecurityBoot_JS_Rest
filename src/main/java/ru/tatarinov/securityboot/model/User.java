@@ -4,7 +4,7 @@ package ru.tatarinov.securityboot.model;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
+
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class User implements UserDetails {
     @Column(length = 30)
     private String userName;
 
-    @Column(length = 30)
+    @Column(length = 200)
     private String password;
 
     @Column(length = 30)
