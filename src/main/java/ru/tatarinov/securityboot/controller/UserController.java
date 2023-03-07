@@ -59,4 +59,11 @@ public class UserController {
         return "redirect:/admin";
 
     }
+    @PostMapping(value = "/editRoleUser")
+    public String editRoleUser(@RequestParam("userId") Long userId, @RequestParam("roleId") Long roleId) {
+        System.out.println(userId);
+        System.out.println(roleId);
+
+        return "redirect:/admin";
+    }
 }

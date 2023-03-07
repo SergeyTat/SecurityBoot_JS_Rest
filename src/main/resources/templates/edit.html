@@ -26,8 +26,6 @@
 </div>
 
 
-
-
 <table>
 
     <tbody>
@@ -35,18 +33,15 @@
         <th>ID</th>
         <th>РОЛЬ</th>
     </tr>
-    <tr th:each="role : ${role}">
+    <tr th:each="role1 : ${role}">
 
-        <td th:text="${role.getId()}"></td>
-        <td th:text="${role.getRole()}"></td>
+        <td th:text="${role1.getId()}"></td>
+        <td th:text="${role1.getRole()}"></td>
         <td>
-            <input type="button" value="Обновить"
-                   th:onclick="|window.location.href = ' @{/admin/role/{id}/edit (id=${role.getId()})}'|"/>
-
-        </td>
-        <td>
-            <form th:method="DELETE" th:action="@{/admin/role/{id}/remove (id=${role.getId()})}">
-                <input type="submit" value="Удалить!"/>
+            <form th:method="POST" th:action="@{/editRoleUser}">
+                <input type="text" th:value="${user.getId()}" name="userId"/>
+                <input type="text" th:value="${role1.getId()}" name="roleId"/>
+                <input type="submit" value="Добавить текущему пользователю"/>
             </form>
 
         </td>
