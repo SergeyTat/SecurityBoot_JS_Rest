@@ -6,47 +6,24 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.tatarinov.securityboot.model.User;
-import ru.tatarinov.securityboot.repositories.RoleRepsitory;
 import ru.tatarinov.securityboot.repositories.UserRepository;
-
-import java.util.List;
+import ru.tatarinov.securityboot.repositories.UserRepositoryDataJpa;
 
 
 @Service
 @Transactional
 public class UserDetailService implements UserDetailsService {
     private final UserRepository userRepository;
-    private final RoleRepsitory roleRepsitory;
 
     @Autowired
-    public UserDetailService(UserRepository userRepository, RoleRepsitory roleRepsitory) {
+    public UserDetailService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.roleRepsitory = roleRepsitory;
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUserName(username);
     }
-
-    public List<User> allUser() {
-        return userRepository.findAll();
-    }
-
-    @Transactional(readOnly = true)
-    public void addUser(User user) {
-        userRepository.save(user);
-    }
-
-    public User findUser(Long id) {
-        return userRepository.findById(id).get();
-    }
-
-    @Transactional(readOnly = true)
-    public void removeUser(Long id) {
-        userRepository.deleteById(id);
-    }
-
 
 }
