@@ -7,16 +7,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.tatarinov.securityboot.repositories.UserRepository;
-import ru.tatarinov.securityboot.repositories.UserRepositoryDataJpa;
 
 
 @Service
 @Transactional
-public class UserDetailService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Autowired
-    public UserDetailService(UserRepository userRepository) {
+    public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

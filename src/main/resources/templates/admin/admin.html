@@ -22,12 +22,20 @@
         <th>ID</th>
         <th>Имя</th>
         <th>Email</th>
+        <th>Роли</th>
+
     </tr>
     <tr th:each="usr : ${user}">
 
         <td th:text="${usr.getId()}"></td>
         <td th:text="${usr.getUsername()}"></td>
         <td th:text="${usr.getEmail()}"></td>
+
+        <td>
+            <th:block th:each="role:${usr.getRoles()}">
+                <p th:text="${role.getName}"></p>
+            </th:block>
+        </td>
         <td>
             <input type="button" value="Обновить" th:onclick="|window.location.href = ' @{/admin/{id}/edit (id=${usr.getId()})}'|"/>
 

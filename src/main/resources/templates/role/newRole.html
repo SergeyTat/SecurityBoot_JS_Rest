@@ -6,11 +6,12 @@
     <title>new</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/createRole}" th:object="${role}">
+<form th:method="POST" th:action="@{/admin/createRole}" th:object="${role}">
+    <input type="hidden" th:field="*{id}" id="id"/>
     <label for="rolen">Enter name: </label>
-    <input type="text" th:field="*{role}" id="rolen"/>
+    <input type="text" th:field="*{name}" id="rolen"/>
     <br/>
-    <input type="submit" value="Create!"/>
+    <input type="submit" value="Сохранить"/>
 </form>
 </body>
 </html>

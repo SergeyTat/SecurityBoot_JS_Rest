@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.tatarinov.securityboot.model.User;
 import ru.tatarinov.securityboot.services.RoleServiceImpl;
-import ru.tatarinov.securityboot.services.UserDetailService;
+import ru.tatarinov.securityboot.services.UserDetailsServiceImpl;
 
 import java.security.Principal;
 
@@ -16,14 +16,13 @@ public class UserController {
     private final UserDetailsService userDetailService;
 
     @Autowired
-    public UserController(RoleServiceImpl roleService, UserDetailService userDetailService) {
+    public UserController(RoleServiceImpl roleService, UserDetailsServiceImpl userDetailService) {
         this.userDetailService = userDetailService;
     }
 
     @GetMapping(value = "/user")
     public String userProfil(Model model, Principal principal) {
         model.addAttribute("user", (User) userDetailService.loadUserByUsername(principal.getName()));
-
         return "userProfil";
     }
 }

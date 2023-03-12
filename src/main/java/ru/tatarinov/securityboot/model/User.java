@@ -7,9 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table
@@ -31,12 +29,12 @@ public class User implements UserDetails {
     @JoinTable(name = "userName_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles = new ArrayList<>();
+    private Set<Role> roles = new HashSet<>();
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.getRoles().stream().map(f -> new SimpleGrantedAuthority(f.getRole())).toList();
+        return this.getRoles().stream().map(f -> new SimpleGrantedAuthority(f.getName())).toList();
     }
 
     @Override
@@ -86,6 +84,13 @@ public class User implements UserDetails {
     public User() {
     }
 
+    public User(String userName, String password, String email, Set<Role> roles) {
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -116,11 +121,11 @@ public class User implements UserDetails {
         return userName;
     }
 
-    public List<Role> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 }

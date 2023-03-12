@@ -25,7 +25,7 @@
     <tr th:each="role : ${role}">
 
         <td th:text="${role.getId()}"></td>
-        <td th:text="${role.getRole()}"></td>
+        <td th:text="${role.getName()}"></td>
         <td>
             <input type="button" value="Обновить"
                    th:onclick="|window.location.href = ' @{/admin/role/{id}/edit (id=${role.getId()})}'|"/>

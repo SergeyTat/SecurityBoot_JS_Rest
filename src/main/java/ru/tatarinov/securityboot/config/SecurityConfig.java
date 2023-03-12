@@ -9,20 +9,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.tatarinov.securityboot.services.UserDetailService;
+import ru.tatarinov.securityboot.services.UserDetailsServiceImpl;
 
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailService userDetailService;
+    private final UserDetailsServiceImpl userDetailService;
     private final SuccessUserHandler successUserHandler;
 
 
     @Autowired
-    public SecurityConfig(UserDetailService userDetailService, SuccessUserHandler successUserHandler) {
+    public SecurityConfig(UserDetailsServiceImpl userDetailService, SuccessUserHandler successUserHandler) {
         this.userDetailService = userDetailService;
 
         this.successUserHandler = successUserHandler;
