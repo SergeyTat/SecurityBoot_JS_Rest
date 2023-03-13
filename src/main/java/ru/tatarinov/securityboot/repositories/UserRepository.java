@@ -7,7 +7,12 @@ import ru.tatarinov.securityboot.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    @Query("SELECT user FROM User user JOIN FETCH user.roles  WHERE user.userName=:username")
-    public User findByUserName(String username);
+
+//    @Query("SELECT user FROM User user JOIN FETCH user.roles  WHERE user.userName=:username")
+//    public User findByUserName(String username);
+
+    @Query("SELECT user FROM User user JOIN FETCH user.roles  WHERE user.email=:email")
+    public User findByEmail(String email);
+
 
 }

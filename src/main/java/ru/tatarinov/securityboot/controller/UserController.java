@@ -1,6 +1,7 @@
 package ru.tatarinov.securityboot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +23,8 @@ public class UserController {
 
     @GetMapping(value = "/user")
     public String userProfil(Model model, Principal principal) {
-        model.addAttribute("user", (User) userDetailService.loadUserByUsername(principal.getName()));
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();;
+        model.addAttribute("user",  user);
         return "userProfil";
     }
 }
