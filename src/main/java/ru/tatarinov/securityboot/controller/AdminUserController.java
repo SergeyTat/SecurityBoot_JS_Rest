@@ -1,15 +1,13 @@
 package ru.tatarinov.securityboot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.tatarinov.securityboot.model.Role;
 import ru.tatarinov.securityboot.model.User;
 import ru.tatarinov.securityboot.services.RoleService;
 import ru.tatarinov.securityboot.services.UserService;
-
-import java.util.Set;
 
 
 @Controller
@@ -29,7 +27,15 @@ public class AdminUserController {
     @GetMapping(value = "/admin")
     public String printUser(Model model) {
         model.addAttribute("user", userService.allUser());
-        return "/admin/admin";
+        model.addAttribute("roles", roleService.allRole());
+        model.addAttribute("user2", new User());
+
+        User user3 = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();;
+        model.addAttribute("user3",  user3);
+
+
+
+        return "admin/admin2";
     }
 
     @GetMapping(value = "/admin/new")
@@ -41,7 +47,7 @@ public class AdminUserController {
     }
 
     @PostMapping(value = "/admin/create")
-    public String createUser(@ModelAttribute("user") User user) {
+    public String createUser(@ModelAttribute("usr") User user) {
         System.out.println(user);
 
         userService.addUser(user);
@@ -55,8 +61,8 @@ public class AdminUserController {
         return "admin/new";
     }
 
-    @DeleteMapping(value = "/admin/{id}/remove")
-    public String removeUser(@PathVariable("id") Long id) {
+    @DeleteMapping(value = "/admin/remove")
+    public String removeUser(@RequestParam("id") Long id) {
         userService.removeUser(id);
         return "redirect:/admin";
 
