@@ -15,7 +15,7 @@
         <div class="col-sm-6 mt-2">
             <b><p class="text-light py-0" th:text="${user3.getEmail()}" style="display:inline-block"></p></b>
             <p class="text-light  py-0" style="display:inline-block"> with roles:</p>
-            <p class="text-light  py-0" th:each="role : ${roles}" th:text="${role.getName+'&nbsp'}"
+            <p class="text-light  py-0" th:each="role : ${user3.getRoles()}" th:text="${role.getName+'&nbsp'}"
                   style="display:inline-block"></p>
 
         </div>
