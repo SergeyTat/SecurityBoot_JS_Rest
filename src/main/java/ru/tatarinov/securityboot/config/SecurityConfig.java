@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.tatarinov.securityboot.services.UserDetailsServiceImpl;
@@ -16,12 +17,12 @@ import ru.tatarinov.securityboot.services.UserDetailsServiceImpl;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserDetailsServiceImpl userDetailService;
+    private final UserDetailsService userDetailService;
     private final SuccessUserHandler successUserHandler;
 
 
     @Autowired
-    public SecurityConfig(UserDetailsServiceImpl userDetailService, SuccessUserHandler successUserHandler) {
+    public SecurityConfig(UserDetailsService userDetailService, SuccessUserHandler successUserHandler) {
         this.userDetailService = userDetailService;
 
         this.successUserHandler = successUserHandler;
