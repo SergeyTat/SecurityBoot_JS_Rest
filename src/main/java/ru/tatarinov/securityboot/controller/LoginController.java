@@ -17,12 +17,12 @@ public class LoginController {
     public String loginPage() {
         return "/auth/login1";
     }
-    @RequestMapping(value="/j_spring_security_logout", method = RequestMethod.GET)
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        return "redirect:/auth/login";
-    }
+//    @RequestMapping(value="/j_spring_security_logout", method = RequestMethod.GET)
+//    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        if (auth != null){
+//            new SecurityContextLogoutHandler().logout(request, response, auth);
+//        }
+//        return "redirect:/auth/login";
+//    }
 }

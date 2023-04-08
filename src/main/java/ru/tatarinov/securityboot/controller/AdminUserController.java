@@ -38,13 +38,13 @@ public class AdminUserController {
         return "admin/admin2";
     }
 
-    @GetMapping(value = "/admin/new")
-    public String newUser(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("roles1", roleService.allRole());
-
-        return "admin/new";
-    }
+//    @GetMapping(value = "/admin/new")
+//    public String newUser(Model model) {
+//        model.addAttribute("user", new User());
+//        model.addAttribute("roles1", roleService.allRole());
+//
+//        return "admin/new";
+//    }
 
     @PostMapping(value = "/admin/create")
     public String createUser(@ModelAttribute("usr") User user) {
@@ -54,12 +54,12 @@ public class AdminUserController {
         return "redirect:/admin";
     }
 
-    @GetMapping(value = "/admin/{id}/edit")
-    public String editUser(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("user", userService.findUser(id));
-        model.addAttribute("roles1", roleService.allRole());
-        return "admin/new";
-    }
+//    @GetMapping(value = "/admin/{id}/edit")
+//    public String editUser(Model model, @PathVariable("id") Long id) {
+//        model.addAttribute("user", userService.findUser(id));
+//        model.addAttribute("roles1", roleService.allRole());
+//        return "admin/new";
+//    }
 
     @DeleteMapping(value = "/admin/remove")
     public String removeUser(@RequestParam("id") Long id) {
