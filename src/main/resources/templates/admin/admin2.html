@@ -390,41 +390,16 @@
         </div>
     </div>
 </div>
-<script>
-    function getData() {
-        fetch("http://localhost:8080/test").then(
-            (res) => res.json()
-        ).then((response) => {
-            var tmpData = "";
-            console.log(response);
-            response.forEach((user) => {
-                tmpData += "<tr>"
-                tmpData += "<td>" + user.id + "</td>";
-                tmpData += "<td>" + user.userName + "</td>";
-                tmpData += "<td>" + user.email + "</td>";
-                tmpData += "<td>" + user.roles.map((role)=>role.name) + "</td>";
-                tmpData += "<td><button class='btn btn-primary' onclick='editDataCall('" + user._id + "')'>Edit</button></td>";
-                tmpData += "<td><button class='btn btn-danger' onclick='deleteData(`" + user._id + "`)'>Delete</button></td>";
-
-                tmpData += "</tr>";
-            })
-            document.getElementById("tbData").innerHTML = tmpData;
-        })
-    }
-
-    getData();
-
-</script>
 
 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous">
-
-
-
-
 </script>
+<script  src="admin.js"></script>
 </body>
 
 </html>
