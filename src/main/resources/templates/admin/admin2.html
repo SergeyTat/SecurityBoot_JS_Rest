@@ -109,8 +109,8 @@
                                         <!--                                                    Edit-->
                                         <!--                                                </button>-->
 
-                                                                                        <!-- Модальное окно -->
-<!--                                                                                        <div class="modal fade" th:id="${'edituser'+usr.getId()}"-->
+                                        <!-- Модальное окно -->
+                                        <!--                                                                                        <div class="modal fade" th:id="${'edituser'+usr.getId()}"-->
                                         <!--                                                     tabindex="-1" aria-labelledby="exampleModalLabel"-->
                                         <!--                                                     aria-hidden="true">-->
                                         <!--                                                    <div class="modal-dialog">-->
@@ -299,33 +299,32 @@
                                 </div>
                                 <div class="card-body d-flex justify-content-center">
 
-                                    <form class="text-center fw-bold " th:method="POST" th:action="@{/admin/create}"
-                                          th:object="${user2}" style="width: 300px" ;>
+                                    <form class="text-center fw-bold " style="width: 300px" ; id="add-form">
                                         <br/>
                                         <label for="add-username" class="form-label">First name</label>
                                         <input type="text" class="form-control form-control-sm"
-                                               th:field="*{userName}" th:name="userName" id="add-username"/>
+                                               id="add-username"/>
                                         <br/>
                                         <label for="add-password" class="form-label">Password</label>
                                         <input type="password" class="form-control form-control-sm"
-                                               th:field="*{password}" th:name="password" id="add-password"/>
+                                               id="add-password"/>
                                         <br/>
                                         <label for="add-email" class="form-label">Email</label>
-                                        <input type="text" class="form-control form-control-sm" th:field="*{email}"
-                                               th:name="email" id="add-email"/>
+                                        <input type="text" class="form-control form-control-sm" id="add-email"/>
                                         <br/>
                                         <label for="add-roles" class="form-label">Role</label>
                                         <br>
                                         <select name="roles" class="form-control form-control-sm" id="add-roles"
                                                 size="2" multiple="multiple">
-                                            <option th:each="role:${roles}" th:text="${role.getName}"
-                                                    th:value="${role.getId}"></option>
+                                            <option value="1">ROLE_ADMIN</option>
+                                            <option value="2">ROLE_USER</option>
                                         </select>
                                         <br/>
 
                                         <div class="modal-footer d-flex justify-content-center">
 
-                                            <button type="submit" class="btn btn-success">Add new user
+                                            <button type="submit" class="btn btn-success" id="add-btn-submit">Add new
+                                                user
                                             </button>
                                         </div>
 
@@ -399,7 +398,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous">
 </script>
-<script  src="admin.js"></script>
+<script src="admin.js"></script>
 </body>
 
 </html>

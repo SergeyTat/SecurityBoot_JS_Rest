@@ -1,8 +1,9 @@
 package ru.tatarinov.securityboot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import ru.tatarinov.securityboot.model.User;
 import ru.tatarinov.securityboot.services.RoleService;
 import ru.tatarinov.securityboot.services.UserService;
@@ -22,9 +23,16 @@ public class AdminUserControllerRest {
         this.roleService = roleService;
     }
 
-    @GetMapping(value = "/test")
+    @GetMapping(value = "/admin/users")
     public List<User> Test() {
         return userService.allUser();
     }
+
+    @PostMapping(value = "/admin/create")
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        userService.addUser(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }

@@ -1,5 +1,8 @@
+const usersTableNavLink = document.getElementById("nav-home-tab");
+
+
 function getData() {
-    fetch("http://localhost:8080/test").then(
+    fetch("http://localhost:8080/admin/users").then(
         (res) => res.json()
     ).then((response) => {
         var tmpData = "";
@@ -22,13 +25,33 @@ function getData() {
 getData();
 
 //Форма добавления юзера
-const addUserForm = document.querySelector(".add-user-form");
+const addUserForm = document.getElementById("add-form");
 // Поля формы добавления нового юзера
-const FormName = document.getElementById("add-user-form-name");
-const FormLastName = document.getElementById("add-user-form-surname");
-const FormAge = document.getElementById("add-user-form-age");
-const FormEmail = document.getElementById("add-user-form-email");
-const FormPassword = document.getElementById("add-user-form-password");
-const FormRoles = document.getElementById("add-user-form-roles");
+const FormName = document.getElementById("add-username");
+const FormPassword = document.getElementById("add-password");
+const FormEmail = document.getElementById("add-email");
+
+const FormRoles = document.getElementById("add-roles");
 //Кнопка submit формы нового юзера
 const addButtonSubmit = document.getElementById("add-btn-submit");
+
+addUserForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    fetch("http://localhost:8080/admin/create", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            userName: FormName.value,
+            password: FormPassword.value,
+            email: FormEmail.value,
+            // roles: FormRoles.value,
+
+        })
+    })
+        .then(() => {
+            usersTableNavLink.click();
+            getData();
+        });
+})

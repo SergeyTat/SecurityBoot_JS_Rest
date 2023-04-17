@@ -46,13 +46,13 @@ public class AdminUserController {
 //        return "admin/new";
 //    }
 
-    @PostMapping(value = "/admin/create")
-    public String createUser(@ModelAttribute("usr") User user) {
-        System.out.println(user);
-
-        userService.addUser(user);
-        return "redirect:/admin";
-    }
+//    @PostMapping(value = "/admin/create")
+//    public String createUser(@ModelAttribute("usr") User user) {
+//        System.out.println(user);
+//
+//        userService.addUser(user);
+//        return "redirect:/admin";
+//    }
 
 //    @GetMapping(value = "/admin/{id}/edit")
 //    public String editUser(Model model, @PathVariable("id") Long id) {
