@@ -302,21 +302,21 @@
                                     <form class="text-center fw-bold " th:method="POST" th:action="@{/admin/create}"
                                           th:object="${user2}" style="width: 300px" ;>
                                         <br/>
-                                        <label for="username" class="form-label">First name</label>
+                                        <label for="add-username" class="form-label">First name</label>
                                         <input type="text" class="form-control form-control-sm"
-                                               th:field="*{userName}" th:name="userName" id="username"/>
+                                               th:field="*{userName}" th:name="userName" id="add-username"/>
                                         <br/>
-                                        <label for="password" class="form-label">Password</label>
+                                        <label for="add-password" class="form-label">Password</label>
                                         <input type="password" class="form-control form-control-sm"
-                                               th:field="*{password}" th:name="password" id="password"/>
+                                               th:field="*{password}" th:name="password" id="add-password"/>
                                         <br/>
-                                        <label for="email" class="form-label">Email</label>
+                                        <label for="add-email" class="form-label">Email</label>
                                         <input type="text" class="form-control form-control-sm" th:field="*{email}"
-                                               th:name="email" id="email"/>
+                                               th:name="email" id="add-email"/>
                                         <br/>
-                                        <label for="roles" class="form-label">Role</label>
+                                        <label for="add-roles" class="form-label">Role</label>
                                         <br>
-                                        <select name="roles" class="form-control form-control-sm" id="roles"
+                                        <select name="roles" class="form-control form-control-sm" id="add-roles"
                                                 size="2" multiple="multiple">
                                             <option th:each="role:${roles}" th:text="${role.getName}"
                                                     th:value="${role.getId}"></option>
