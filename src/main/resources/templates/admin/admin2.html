@@ -196,87 +196,81 @@
                                         <!--                                                </button>-->
 
                                         <!--                                                &lt;!&ndash; Модальное окно &ndash;&gt;-->
-                                        <!--                                                <div class="modal fade" th:id="${'deleteuser'+usr.getId()}"-->
-                                        <!--                                                     tabindex="-1" aria-labelledby="exampleModalLabel"-->
-                                        <!--                                                     aria-hidden="true">-->
-                                        <!--                                                    <div class="modal-dialog">-->
-                                        <!--                                                        <div class="modal-content">-->
-                                        <!--                                                            <div class="modal-header">-->
-                                        <!--                                                                <h3 class="modal-title fs-5"-->
-                                        <!--                                                                    id="exampleModalLabel">Delete User</h3>-->
-                                        <!--                                                                <button type="button" class="btn-close"-->
-                                        <!--                                                                        data-bs-dismiss="modal"-->
-                                        <!--                                                                        aria-label="Закрыть"></button>-->
-                                        <!--                                                            </div>-->
-                                        <!--                                                            <div class="modal-body">-->
+                                        <div class="modal fade" id="modal-delete"
+                                             tabindex="-1" aria-labelledby="exampleModalLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h3 class="modal-title fs-5"
+                                                            id="exampleModalLabel">Delete User</h3>
+                                                        <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Закрыть"></button>
+                                                    </div>
+                                                    <div class="modal-body">
 
 
-                                        <!--                                                                <form class="text-center fw-bold"-->
-                                        <!--                                                                      th:method="DELETE"-->
-                                        <!--                                                                      th:action="@{/admin/remove}"-->
-                                        <!--                                                                      th:object="${usr}">-->
+                                                        <form class="text-center fw-bold">
 
-                                        <!--                                                                    <label for="id"-->
-                                        <!--                                                                           class="form-label">ID</label>-->
-                                        <!--                                                                    <input type="text" class="form-control"-->
-                                        <!--                                                                           th:name="id" th:value="${usr.getId}"-->
-                                        <!--                                                                           id="id"-->
-                                        <!--                                                                           aria-label="readonly input example"-->
-                                        <!--                                                                           readonly/>-->
+                                                            <label for="delete-id"
+                                                                   class="form-label">ID</label>
+                                                            <input type="text" class="form-control"
 
-                                        <!--                                                                    <br/>-->
-                                        <!--                                                                    <label for="username"-->
-                                        <!--                                                                           class="form-label">First name</label>-->
-                                        <!--                                                                    <input type="text" class="form-control"-->
-                                        <!--                                                                           th:value="${usr.getUsername}"-->
-                                        <!--                                                                           th:name="userName" id="username"-->
-                                        <!--                                                                           aria-label="readonly input example"-->
-                                        <!--                                                                           readonly/>-->
-                                        <!--                                                                    <br/>-->
+                                                                   id="delete-id"
+                                                                   aria-label="readonly input example"
+                                                                   readonly/>
 
-                                        <!--                                                                    <input type="hidden" class="form-control"-->
-                                        <!--                                                                           th:value="${''}" th:name="password"-->
-                                        <!--                                                                           id="password"/>-->
-                                        <!--                                                                    <br/>-->
-                                        <!--                                                                    <label for="email"-->
-                                        <!--                                                                           class="form-label">Email</label>-->
-                                        <!--                                                                    <input type="text" class="form-control"-->
-                                        <!--                                                                           th:value="${usr.getEmail}"-->
-                                        <!--                                                                           th:name="email" id="email"-->
-                                        <!--                                                                           aria-label="readonly input example"-->
-                                        <!--                                                                           readonly/>-->
-                                        <!--                                                                    <br/>-->
-                                        <!--                                                                    <label for="roles"-->
-                                        <!--                                                                           class="form-label">Role</label>-->
-                                        <!--                                                                    <br>-->
-                                        <!--                                                                    <select name="roles" class="form-control"-->
-                                        <!--                                                                            id="roles" size="2" multiple="multiple"-->
-                                        <!--                                                                            aria-label="readonly input example"-->
-                                        <!--                                                                            readonly>-->
-                                        <!--                                                                        <option th:each="role:${roles}"-->
-                                        <!--                                                                                th:text="${role.getName}"-->
-                                        <!--                                                                                th:value="${role.getId}"></option>-->
-                                        <!--                                                                    </select>-->
-                                        <!--                                                                    <br/>-->
+                                                            <br/>
+                                                            <label for="delete-username"
+                                                                   class="form-label">First name</label>
+                                                            <input type="text" class="form-control"
+                                                                   id="delete-username"
+                                                                   aria-label="readonly input example"
+                                                                   readonly/>
+                                                            <br/>
 
-                                        <!--                                                                    <div class="modal-footer">-->
-                                        <!--                                                                        <button type="button"-->
-                                        <!--                                                                                class="btn btn-secondary"-->
-                                        <!--                                                                                data-bs-dismiss="modal">Close-->
-                                        <!--                                                                        </button>-->
-                                        <!--                                                                        <button type="submit"-->
-                                        <!--                                                                                class="btn btn-primary btn-danger">-->
-                                        <!--                                                                            Delete-->
-                                        <!--                                                                        </button>-->
-                                        <!--                                                                    </div>-->
+                                                            <input type="hidden" class="form-control"
+
+                                                                   id="delete-password"/>
+                                                            <br/>
+                                                            <label for="delete-email"
+                                                                   class="form-label">Email</label>
+                                                            <input type="text" class="form-control"
+                                                                   id="delete-email"
+                                                                   aria-label="readonly input example"
+                                                                   readonly/>
+                                                            <br/>
+                                                            <label for="delete-roles"
+                                                                   class="form-label">Role</label>
+                                                            <br>
+                                                            <select name="roles" class="form-control"
+                                                                    id="delete-roles" size="2" multiple="multiple"
+                                                                    aria-label="readonly input example"
+                                                                    readonly>
+                                                                <option value="1" id="delete-role_user">ROLE_USER</option>
+                                                                <option value="2" id="delete-role_admin">ROLE_ADMIN</option>
+                                                            </select>
+                                                            <br/>
+
+                                                            <div class="modal-footer">
+                                                                <button type="button"
+                                                                        class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close
+                                                                </button>
+                                                                <button type="submit"
+                                                                        class="btn btn-primary btn-danger">
+                                                                    Delete
+                                                                </button>
+                                                            </div>
 
 
-                                        <!--                                                                </form>-->
-                                        <!--                                                            </div>-->
+                                                        </form>
+                                                    </div>
 
-                                        <!--                                                        </div>-->
-                                        <!--                                                    </div>-->
-                                        <!--                                                </div>-->
+                                                </div>
+                                            </div>
+                                        </div>
 
 
                                         <!--                                            </td>-->
@@ -316,8 +310,8 @@
                                         <br>
                                         <select name="roles" class="form-control form-control-sm" id="add-roles"
                                                 size="2" multiple="multiple">
-                                            <option value="1">ROLE_ADMIN</option>
-                                            <option value="2">ROLE_USER</option>
+                                            <option value="1">ROLE_USER</option>
+                                            <option value="2">ROLE_ADMIN</option>
                                         </select>
                                         <br/>
 
@@ -390,7 +384,7 @@
     </div>
 </div>
 
-
+<script src="admin.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -398,7 +392,7 @@
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous">
 </script>
-<script src="admin.js"></script>
+
 </body>
 
 </html>

@@ -34,5 +34,10 @@ public class AdminUserControllerRest {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping(value = "/admin/{id}")
+    public ResponseEntity<User> editUser(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(userService.findUser(id));
+    }
+
 
 }
