@@ -133,15 +133,16 @@ document.getElementById("tbData").addEventListener("click", e => {
                 deleteUsersEmail.value = user.email;
 
                 let deleteRoles = user.roles.map(i => i.name)
-
+                $('#delete-role_user').prop("selected", false)
+                $('#delete-role_admin').prop("selected", false)
                 deleteRoles.forEach(
                     role => {
 
                         if (role === "ROLE_ADMIN") {
-                            deleteRoleAdminOption.setAttribute('selected', "selected");
+                            deleteRoleAdminOption.selected = true;
 
                         } else if (role === "ROLE_USER") {
-                            deleteRoleUserOption.setAttribute('selected', "selected");
+                            deleteRoleUserOption.selected = true;
                         }
                     })
             })
@@ -152,9 +153,9 @@ document.getElementById("tbData").addEventListener("click", e => {
             e.preventDefault();
             fetch("http://localhost:8080/admin" + "/" + currentUserId, {
                 method: 'DELETE',
-            })
+            }).then(()=>getData())
             modalDeleteExitBtn.click();
-            location.reload();
+
         })
     }
 
@@ -182,14 +183,17 @@ document.getElementById("tbData").addEventListener("click", e => {
                 editUsersPassword.value = '';
                 editUsersEmail.value = user.email;
                 let editRoles = user.roles.map(i => i.name)
-
+                $('#edit-role_user').prop("selected", false)
+                $('#edit-role_admin').prop("selected", false)
                 editRoles.forEach(
                     role => {
+
+
                         if (role === "ROLE_ADMIN") {
-                            editRoleAdminOption.setAttribute('selected', "selected");
+                            editRoleAdminOption.selected = true;
 
                         } else if (role === "ROLE_USER") {
-                            editRoleUserOption.setAttribute('selected', "selected");
+                            editRoleUserOption.selected = true;
                         }
                     })
             })
@@ -206,15 +210,17 @@ document.getElementById("tbData").addEventListener("click", e => {
             }
             console.log(user);
             console.log(user.roles);
-            fetch("http://localhost:8080/admin/create", {
-                method: 'POST',
+            fetch("http://localhost:8080/admin/update", {
+                method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json;charset=UTF-8'
                 },
                 body: JSON.stringify(user)
             })
-                .then(() => location.reload());
+                .then(() => getData());
+            modalEditExitBtn.click();
+
 
         })
 

@@ -29,11 +29,8 @@ public class AdminUserController {
         model.addAttribute("user", userService.allUser());
         model.addAttribute("roles", roleService.allRole());
         model.addAttribute("user2", new User());
-
         User user3 = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();;
         model.addAttribute("user3",  user3);
-
-
 
         return "admin/admin2";
     }

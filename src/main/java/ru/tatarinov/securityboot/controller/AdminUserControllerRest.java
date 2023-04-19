@@ -24,15 +24,26 @@ public class AdminUserControllerRest {
     }
 
     @GetMapping(value = "/admin/users")
-    public List<User> Test() {
-        return userService.allUser();
+    public ResponseEntity<List<User>> Users() {
+        List<User> users = userService.allUser();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+
     }
 
     @PostMapping(value = "/admin/create")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         userService.addUser(user);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @PutMapping (value = "/admin/update")
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        userService.addUser(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+
+
 
     @GetMapping(value = "/admin/{id}")
     public ResponseEntity<User> editUser(@PathVariable("id") Long id) {
@@ -44,6 +55,5 @@ public class AdminUserControllerRest {
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
-
 
 }
