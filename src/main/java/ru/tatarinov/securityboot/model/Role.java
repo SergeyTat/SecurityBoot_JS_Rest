@@ -1,7 +1,6 @@
 package ru.tatarinov.securityboot.model;
 
 
-
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -57,8 +56,5 @@ public class Role implements GrantedAuthority {
                 "role='" + name + '\'' +
                 '}';
     }
-
-
-
 
 }

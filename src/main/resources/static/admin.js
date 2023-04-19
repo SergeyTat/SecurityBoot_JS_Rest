@@ -79,7 +79,6 @@ addUserForm.addEventListener("submit", (e) => {
 //Изменение пользователя
 
 const modalEditExitBtn = document.getElementById("exit_btn-modal-edit");
-const modalEditCloseBtn = document.getElementById("close_btn-modal-edit");
 const modalEditSubmitBtn = document.getElementById("submit_btn-modal-edit");
 const editUsersRoles = document.getElementById("edit-rolesSelect");
 const editRoleAdminOption = document.getElementById("edit-role_admin");
@@ -90,7 +89,7 @@ const deleteRoleAdminOption = document.getElementById("delete-role_admin");
 const deleteRoleUserOption = document.getElementById("delete-role_user");
 const modalDeleteSubmitBtn = document.getElementById("submit_btn-modal-delete");
 const modalDeleteExitBtn = document.getElementById("exit_btn-modal-delete");
-const modalDeleteCloseBtn = document.getElementById("close_btn-modal-delete");
+
 
 
 function getRolesFromEditUserForm() {
@@ -153,7 +152,7 @@ document.getElementById("tbData").addEventListener("click", e => {
             e.preventDefault();
             fetch("http://localhost:8080/admin" + "/" + currentUserId, {
                 method: 'DELETE',
-            }).then(()=>getData())
+            }).then(() => getData())
             modalDeleteExitBtn.click();
 
         })
@@ -227,3 +226,32 @@ document.getElementById("tbData").addEventListener("click", e => {
     }
 
 })
+//Заполнение панели пользователя
+
+const userPanelData = document.getElementById("user_panel-data");
+const authorisedUserData = document.getElementById("authorised_user-data");
+
+let currentUser = () => {
+    fetch("http://localhost:8080/usertab", {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(res => res.json())
+        .then(user => {
+            if (user != null) {
+                userPanelData.innerHTML = `
+                    <tr>
+                        <td> ${user.id} </td>
+                        <td> ${user.userName} </td>
+                        <td> ${user.email} </td>
+                        <td>${user.roles.map((role) => role.name)}</td>
+                    </tr>
+                `
+                authorisedUserData.innerHTML = `
+                    <p class="text-light">${user.email} with roles: ${user.roles.map((role) => role.name)}</p>`
+            }
+        })
+}
+currentUser();

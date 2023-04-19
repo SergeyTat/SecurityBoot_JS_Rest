@@ -11,12 +11,9 @@
 
 <body>
 <div class="container-fluid">
-    <div class="row bg-dark d-flex align-items-center  " >
-        <div class="col-sm-6 mt-2">
-            <b><p class="text-light py-0" th:text="${user3.getEmail()}" style="display:inline-block"></p></b>
-            <p class="text-light  py-0" style="display:inline-block"> with roles:</p>
-            <p class="text-light  py-0" th:each="role : ${user3.getRoles()}" th:text="${role.getName+'&nbsp'}"
-               style="display:inline-block"></p>
+    <div class="row bg-dark d-flex align-items-center  ">
+        <div class="col-sm-6 mt-2" id="current_authorised_user-data">
+
 
         </div>
         <div class="col-sm-6 mt-0 d-flex justify-content-end ">
@@ -28,15 +25,14 @@
         </div>
 
 
-
-
     </div>
     <div class="row">
         <div class="col-2 mt-2 p-0 ">
 
             <div class="nav flex-column nav-pills " id="v-pills-tab" ; role="tablist" aria-orientation="vertical">
 
-                <a class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile"
+                <a class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill"
+                   data-bs-target="#v-pills-profile"
                    type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true">User</a>
             </div>
 
@@ -66,22 +62,8 @@
                                 </tr>
                                 </thead>
 
-                                <tbody>
+                                <tbody id="current_user_panel-data">
 
-                                <tr th:each="usr : ${user3}">
-
-                                    <td th:text="${usr.getId()}"></td>
-                                    <td th:text="${usr.getUsername()}"></td>
-                                    <td th:text="${usr.getEmail()}"></td>
-
-                                    <td>
-                                        <th:block th:each="role:${usr.getRoles()}">
-                                            <p th:text="${role.getName}"></p>
-                                        </th:block>
-                                    </td>
-
-
-                                </tr>
                                 </tbody>
                             </table>
 
@@ -96,9 +78,15 @@
 </div>
 
 
+<script src="user.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+</script>
+
 </body>
 
 </html>

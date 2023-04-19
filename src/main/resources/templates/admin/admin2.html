@@ -12,11 +12,8 @@
 <body>
 <div class="container-fluid">
     <div class="row bg-dark d-flex align-items-center  ">
-        <div class="col-sm-6 mt-2">
-            <b><p class="text-light py-0" th:text="${user3.getEmail()}" style="display:inline-block"></p></b>
-            <p class="text-light  py-0" style="display:inline-block"> with roles:</p>
-            <p class="text-light  py-0" th:each="role : ${user3.getRoles()}" th:text="${role.getName+'&nbsp'}"
-               style="display:inline-block"></p>
+        <div class="col-sm-6 mt-2" id="authorised_user-data">
+
 
         </div>
         <div class="col-sm-6 mt-0 d-flex justify-content-end ">
@@ -309,7 +306,7 @@
                         </div>
                         <div class="card-body">
 
-                            <table class="table border-top table-striped">
+                            <table class="table border-top table-striped" >
                                 <thead>
                                 <tr>
                                     <th>ID</th>
@@ -319,22 +316,9 @@
                                 </tr>
                                 </thead>
 
-                                <tbody>
-
-                                <tr th:each="usr : ${user3}">
-
-                                    <td th:text="${usr.getId()}"></td>
-                                    <td th:text="${usr.getUsername()}"></td>
-                                    <td th:text="${usr.getEmail()}"></td>
-
-                                    <td>
-                                        <th:block th:each="role:${usr.getRoles()}">
-                                            <p th:text="${role.getName}"></p>
-                                        </th:block>
-                                    </td>
+                                <tbody id="user_panel-data">
 
 
-                                </tr>
                                 </tbody>
                             </table>
 
