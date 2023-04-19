@@ -61,11 +61,11 @@ public class AdminUserController {
 //        return "admin/new";
 //    }
 
-    @DeleteMapping(value = "/admin/remove")
-    public String removeUser(@RequestParam("id") Long id) {
-        userService.removeUser(id);
-        return "redirect:/admin";
-
-    }
+//    @DeleteMapping(value = "/admin/remove")
+//    public String removeUser(@RequestParam("id") Long id) {
+//        userService.removeUser(id);
+//        return "redirect:/admin";
+//
+//    }
 
 }

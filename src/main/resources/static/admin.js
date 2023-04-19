@@ -3,24 +3,28 @@ const usersTableNavLink = document.getElementById("nav-home-tab");
 
 function getData() {
 
-    fetch("http://localhost:8080/admin/users").then(
-        (res) => res.json())
+    fetch("http://localhost:8080/admin/users").then((res) => res.json())
         .then((response) => {
-            let tmpData = "";
+            let tmpData = '';
 
 
             response.forEach((user) => {
 
-                tmpData += "<tr>"
-                tmpData += "<td>" + user.id + "</td>";
-                tmpData += "<td>" + user.userName + "</td>";
-                tmpData += "<td>" + user.email + "</td>";
-                tmpData += "<td>" + user.roles.map((role) => role.name) + "</td>";
-                tmpData += "<td><button class='btn btn-primary' id='btn-edit-modal-call' data-id=${user.id}>Edit</button></td>";
-                tmpData += "<td><button class='btn btn-danger' id='btn-delete-modal-call' data-id='${user.id}'>Delete</button></td>";
+                tmpData += `
+                        <tr>
+                            <td>${user.id}</td>
+                            <td>${user.userName}</td>
+                            <td>${user.email}</td>
+                           <td>${user.roles.map((role) => role.name)}</td>
+                           <td> <button type="button" class="btn btn-info" id="btn-edit-modal-call" data-toggle="modal" data-target="modal-edit"
+                    data-id="${user.id}">Edit</button></td>
+                    <td> <button type="button" class="btn btn-danger" id="btn-delete-modal-call" 
+                    data-id="${user.id}">Delete</button></td>
+                                    </tr>`;
 
-                tmpData += "</tr>";
+
             })
+
             document.getElementById("tbData").innerHTML = tmpData;
         })
 
@@ -46,8 +50,7 @@ const addButtonSubmit = document.getElementById("add-btn-submit");
 function getRolesFromAddUserForm() {
     let roles = Array.from(FormRoles.selectedOptions)
         .map((s) => ({
-            id: s.value,
-            name: s.text
+            id: s.value, name: s.text
         }));
 
     return roles;
@@ -57,11 +60,9 @@ function getRolesFromAddUserForm() {
 addUserForm.addEventListener("submit", (e) => {
     e.preventDefault();
     fetch("http://localhost:8080/admin/create", {
-        method: 'POST',
-        headers: {
+        method: 'POST', headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+        }, body: JSON.stringify({
             userName: FormName.value,
             password: FormPassword.value,
             email: FormEmail.value,
@@ -71,7 +72,7 @@ addUserForm.addEventListener("submit", (e) => {
     })
         .then(() => {
             usersTableNavLink.click();
-            getData();
+            location.reload();
         });
 })
 
@@ -93,24 +94,14 @@ const modalDeleteCloseBtn = document.getElementById("close_btn-modal-delete");
 
 
 function getRolesFromEditUserForm() {
+
     let roles = Array.from(editUsersRoles.selectedOptions)
-        .map(option => option.value);
-    let rolesToEdit = [];
-    if (roles.includes("1")) {
-        let role1 = {
-            id: 1,
-            name: "Admin"
-        }
-        rolesToEdit.push(role1);
-    }
-    if (roles.includes("2")) {
-        let role2 = {
-            id: 2,
-            name: "User"
-        }
-        rolesToEdit.push(role2);
-    }
-    return rolesToEdit;
+        .map((s) => ({
+            id: s.value, name: s.text
+        }));
+
+    return roles;
+
 }
 
 //Отслеживание нажатий по кнопкам Edit и Delete в таблице юзеров
@@ -126,107 +117,107 @@ document.getElementById("tbData").addEventListener("click", e => {
     const deleteUsersEmail = document.getElementById("delete-email")
 
     if (delButtonIsPressed) {
+
         let currentUserId = e.target.dataset.id;
-        console.log(currentUserId);
-        // fetch("http://localhost:8080/admin" + "/" + currentUserId, {
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json;charset=UTF-8'
-        //     }
-        // })
-        //     .then(res => res.json())
-        //     .then(user => {
-        //         deleteUsersId.value = user.id;
-        //         deleteUsersName.value = user.userName;
-        //         deleteUsersEmail.value = user.email;
-        //
-        //         let deleteRoles = user.roles.map(i => i.name)
-        //         deleteRoles.forEach(
-        //             role => {
-        //                 if (role === "ROLE_ADMIN") {
-        //                     deleteRoleAdminOption.setAttribute('selected', "selected");
-        //
-        //                 } else if (role === "ROLE_USER") {
-        //                     deleteRoleUserOption.setAttribute('selected', "selected");
-        //                 }
-        //             })
-        //     })
+
+        fetch("http://localhost:8080/admin" + "/" + currentUserId, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8'
+            }
+        })
+            .then(res => res.json())
+            .then(user => {
+                deleteUsersId.value = user.id;
+                deleteUsersName.value = user.userName;
+                deleteUsersEmail.value = user.email;
+
+                let deleteRoles = user.roles.map(i => i.name)
+
+                deleteRoles.forEach(
+                    role => {
+
+                        if (role === "ROLE_ADMIN") {
+                            deleteRoleAdminOption.setAttribute('selected', "selected");
+
+                        } else if (role === "ROLE_USER") {
+                            deleteRoleUserOption.setAttribute('selected', "selected");
+                        }
+                    })
+            })
 
         $('#modal-delete').modal('show');
+
+        modalDeleteSubmitBtn.addEventListener("click", e => {
+            e.preventDefault();
+            fetch("http://localhost:8080/admin" + "/" + currentUserId, {
+                method: 'DELETE',
+            })
+            modalDeleteExitBtn.click();
+            location.reload();
+        })
     }
+
+
+//Изменение
+
+    const editUsersId = document.getElementById("edit-id");
+    const editUsersName = document.getElementById("edit-username");
+    const editUsersPassword = document.getElementById("edit-password");
+    const editUsersEmail = document.getElementById("edit-email");
+
+    if (editButtonIsPressed) {
+        let currentUserId = e.target.dataset.id;
+        fetch("http://localhost:8080/admin" + "/" + currentUserId, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8'
+            }
+        })
+            .then(res => res.json())
+            .then(user => {
+
+                editUsersId.value = user.id;
+                editUsersName.value = user.userName;
+                editUsersPassword.value = '';
+                editUsersEmail.value = user.email;
+                let editRoles = user.roles.map(i => i.name)
+
+                editRoles.forEach(
+                    role => {
+                        if (role === "ROLE_ADMIN") {
+                            editRoleAdminOption.setAttribute('selected', "selected");
+
+                        } else if (role === "ROLE_USER") {
+                            editRoleUserOption.setAttribute('selected', "selected");
+                        }
+                    })
+            })
+        $('#modal-edit').modal('show');
+
+        modalEditSubmitBtn.addEventListener("click", e => {
+            e.preventDefault();
+            let user = {
+                id: editUsersId.value,
+                userName: editUsersName.value,
+                password: editUsersPassword.value,
+                email: editUsersEmail.value,
+                roles: getRolesFromEditUserForm()
+            }
+            console.log(user);
+            console.log(user.roles);
+            fetch("http://localhost:8080/admin/create", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify(user)
+            })
+                .then(() => location.reload());
+
+        })
+
+    }
+
 })
-
-// modalDeleteSubmitBtn.addEventListener("click", e => {
-//     e.preventDefault();
-//     fetch(`${requestURL}/${currentUserId}`, {
-//         method: 'DELETE',
-//     })
-//         .then(res => res.json());
-//     modalDeleteExitBtn.click();
-//     getAllUsers();
-//     location.reload();
-// })
-
-// //Изменение
-//
-//     const editUsersId = document.getElementById("edit-id");
-//     const editUsersName = document.getElementById("edit-name");
-//     const editUsersSurname = document.getElementById("edit-surname");
-//     const editUsersAge = document.getElementById("edit-age");
-//     const editUsersEmail = document.getElementById("edit-email");
-//
-//     if (editButtonIsPressed) {
-//         let currentUserId = e.target.dataset.id;
-//         fetch(requestURL + "/" + currentUserId, {
-//             headers: {
-//                 'Accept': 'application/json',
-//                 'Content-Type': 'application/json;charset=UTF-8'
-//             }
-//         })
-//             .then(res => res.json())
-//             .then(user => {
-//
-//                 editUsersId.value = user.id;
-//                 editUsersName.value = user.name;
-//                 editUsersSurname.value = user.surname;
-//                 editUsersAge.value = user.age;
-//                 editUsersEmail.value = user.email;
-//
-//                 let editRoles = user.roles.map(i => i.roleName)
-//                 editRoles.forEach(
-//                     role => {
-//                         if (role === "ROLE_ADMIN") {
-//                             editRoleAdminOption.setAttribute('selected', "selected");
-//
-//                         } else if (role === "ROLE_USER") {
-//                             editRoleUserOption.setAttribute('selected', "selected");
-//                         }
-//                     })
-//             })
-//         $('#modal-edit').modal('show');
-//
-//         modalEditSubmitBtn.addEventListener("click", e => {
-//             e.preventDefault();
-//             let user = {
-//                 id: editUsersId.value,
-//                 name: editUsersName.value,
-//                 surname: editUsersSurname.value,
-//                 age: editUsersAge.value,
-//                 email: editUsersEmail.value,
-//                 roles: getRolesFromEditUserForm()
-//             }
-//             fetch(`${requestURL}/${currentUserId}`, {
-//                 method: 'PUT',
-//                 headers: {
-//                     'Accept': 'application/json',
-//                     'Content-Type': 'application/json;charset=UTF-8'
-//                 },
-//                 body: JSON.stringify(user)
-//             })
-//                 .then(res => console.log(res));
-//             modalEditExitBtn.click();
-//             getAllUsers();
-//             location.reload();
-//         })
-//     }
-// })

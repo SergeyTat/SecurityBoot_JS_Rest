@@ -38,6 +38,12 @@ public class AdminUserControllerRest {
     public ResponseEntity<User> editUser(@PathVariable("id") Long id) {
         return ResponseEntity.ok(userService.findUser(id));
     }
+    @DeleteMapping(value = "/admin/{id}")
+    public ResponseEntity<User> removeUser(@PathVariable ("id") Long id) {
+        userService.removeUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
 
 
 }
